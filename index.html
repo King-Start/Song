@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>NOMEN.AUDIO</title>
+    <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+    <header>
+        <nav>
+            <div class="logo">NOMEN.<span>AUDIO</span></div>
+            <div class="nav-links">
+                <a href="#" class="active" data-tab="audio">AUDIO</a>
+                <a href="#" data-tab="history">HISTORY</a>
+                <a href="#" data-tab="roblox">ROBLOX SETUP</a>
+                <a href="#" data-tab="server">SERVER ONLINE</a>
+            </div>
+        </nav>
+    </header>
+
+    <main>
+
+        <!-- ===== TAB AUDIO ===== -->
+        <section id="tab-audio" class="tab-content active">
+            <div class="hero">
+                <h1>AUDIO CONVERTER · V2</h1>
+            </div>
+
+            <div class="step-badges">
+                <span class="badge">STEP 01</span>
+                <span class="badge">STEP 02</span>
+                <span class="badge">STEP 03</span>
+            </div>
+
+            <div class="step-description">
+                <p><strong>STEP 01</strong> Drop your songs<br /><small>mp3, wav, ogg, flac and more. Up to 200MB.</small></p>
+                <p><strong>STEP 02</strong> Tune &amp; preview<br /><small>Each track gets its own shift. Hit preview to hear it before converting. Long tracks come pre-set to fit under 7:00.</small></p>
+                <p><strong>STEP 03</strong> Add it to the config<br /><small>Upload to Roblox and set the effectSpeed value we give you. Done.</small></p>
+            </div>
+
+            <div class="drop-zone" id="dropArea">
+                <div class="drop-content">
+                    <span class="drop-icon">🎵</span>
+                    <p>Drop audio files here</p>
+                    <span class="or">or</span>
+                    <button onclick="document.getElementById('fileInput').click()">click to browse</button>
+                    <input type="file" id="fileInput" accept=".mp3,.ogg,.wav,.flac" hidden />
+                </div>
+            </div>
+
+            <div id="fileInfo" class="file-info" style="display:none;">
+                <span class="file-name" id="fileName"></span>
+                <span id="fileSize"></span>
+                <span id="fileDuration"></span>
+            </div>
+
+            <!-- CONTROLS -->
+            <div id="controls" style="display:none; margin-top:12px;">
+                <div style="display:flex; gap:12px; flex-wrap:wrap; background:#11111a; padding:12px 16px; border-radius:10px; border:1px solid #1a1a2e;">
+                    <div style="flex:1; min-width:120px;">
+                        <label style="font-size:11px; color:#6a6a7a; display:flex; justify-content:space-between;">
+                            ⏩ SPEED <span id="speedValue" style="color:#6c6cff;">1.0x</span>
+                        </label>
+                        <input type="range" id="speedControl" min="0.5" max="2.0" step="0.1" value="1.0" style="width:100%;" />
+                    </div>
+                    <div style="flex:1; min-width:120px;">
+                        <label style="font-size:11px; color:#6a6a7a; display:flex; justify-content:space-between;">
+                            🔊 VOLUME <span id="volumeValue" style="color:#6c6cff;">100%</span>
+                        </label>
+                        <input type="range" id="volumeControl" min="0" max="200" step="5" value="100" style="width:100%;" />
+                    </div>
+                    <div style="display:flex; gap:6px; align-items:center;">
+                        <button id="previewBtn" style="background:#1a1a2e; color:#c8c8d8; border:1px solid #2a2a3e; padding:6px 16px; border-radius:8px; font-size:12px; cursor:pointer;">▶</button>
+                        <button id="stopBtn" style="background:#2a0a0a; color:#ff6a6a; border:1px solid #3a1a1a; padding:6px 16px; border-radius:8px; font-size:12px; cursor:pointer;">⏹</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- UPLOAD BUTTON -->
+            <div id="uploadSection" style="display:none; margin-top:14px;">
+                <button id="uploadBtn" class="btn-upload">🚀 UPLOAD TO ROBLOX</button>
+                <div id="uploadStatus" class="upload-status"></div>
+            </div>
+
+            <footer>
+                <p>NOMEN.<span>AUDIO</span> – BUILT FOR THE NEKODJ SYSTEM</p>
+            </footer>
+        </section>
+
+        <!-- ===== TAB HISTORY ===== -->
+        <section id="tab-history" class="tab-content">
+            <div class="history-header">
+                <h2>History</h2>
+                <p class="history-sub">saved in this browser. click a value or id to copy it.</p>
+            </div>
+            <div id="historyList" class="history-list">
+                <div class="history-empty"><p>Belum ada riwayat upload.</p></div>
+            </div>
+            <div class="history-actions">
+                <button id="clearHistoryBtn" class="btn-clear">CLEAR ALL</button>
+                <button id="closeHistoryBtn" class="btn-close-history">CLOSE</button>
+            </div>
+        </section>
+
+        <!-- ===== TAB ROBLOX SETUP ===== -->
+        <section id="tab-roblox" class="tab-content">
+            <div class="setup-header">
+                <h2># Roblox auto-upload</h2>
+                <p class="setup-desc">
+                    <strong>optional.</strong> you can always just download the file and upload it to roblox yourself.
+                    this popup is only for one-click uploads straight to your account – roblox requires an api key for that.
+                    one-time setup, saved your browser only.
+                </p>
+            </div>
+            <div class="setup-steps">
+                <ol>
+                    <li><strong>create.roblox.com</strong> – All tools (bottom of left menu)
+                        <ul><li>API Keys</li><li>Create API Key (pick your community first in the top-left dropdown if uploading to a community)</li></ul>
+                    </li>
+                    <li>name it anything – under <strong>Access Permissions</strong> add the Assets API system with <strong>read + write</strong> operations</li>
+                    <li>under <strong>Security</strong>: leave the IP toggle <strong>off</strong>, expiration <strong>none</strong></li>
+                    <li><strong>Save &amp; Generate Key</strong> – copy it here</li>
+                </ol>
+            </div>
+            <div class="setup-form">
+                <div class="form-group">
+                    <label>API KEY</label>
+                    <input type="password" id="setupApiKey" placeholder="Paste your API key here" />
+                    <small id="apiKeyStatus" style="display:none; font-size:12px; margin-top:4px;"></small>
+                </div>
+                <div class="form-group">
+                    <label>CREATOR</label>
+                    <div class="radio-group">
+                        <label><input type="radio" name="creatorType" value="user" checked /> USER</label>
+                        <label><input type="radio" name="creatorType" value="community" /> COMMUNITY</label>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label>USER / COMMUNITY ID</label>
+                    <input type="text" id="setupUserId" placeholder="the number in your profile or community URL" />
+                    <small id="userIdStatus" style="display:none; font-size:12px; margin-top:4px;"></small>
+                </div>
+                <div class="setup-actions">
+                    <button id="closeSetupBtn" class="btn-close-setup">CLOSE</button>
+                    <button id="saveSetupBtn" class="btn-save-setup">SAVE</button>
+                </div>
+            </div>
+        </section>
+
+        <!-- ===== TAB SERVER ONLINE ===== -->
+        <section id="tab-server" class="tab-content">
+            <div class="server-status">
+                <div class="status-indicator" id="serverStatus">
+                    <span class="dot" id="serverDot"></span>
+                    <span class="status-text" id="serverText">CHECKING...</span>
+                </div>
+                <p class="server-info" id="serverInfo">Memeriksa konfigurasi...</p>
+                <p class="server-detail" id="serverDetail">Tunggu sebentar</p>
+                
+                <div id="serverDetailStatus" style="margin-top:20px; background:#0a0a12; border-radius:10px; padding:16px 20px; border:1px solid #1a1a2e; text-align:left; font-size:13px;">
+                    <div style="padding:4px 0;"><span style="color:#6a6a7a;">🔑 API Key:</span> <span id="statusApiKey" style="color:#ff6a6a;">❌ Kosong</span></div>
+                    <div style="padding:4px 0;"><span style="color:#6a6a7a;">🆔 User ID:</span> <span id="statusUserId" style="color:#ff6a6a;">❌ Kosong</span></div>
+                    <div style="padding:4px 0; border-top:1px solid #1a1a2e; margin-top:6px; padding-top:8px;">
+                        <span style="color:#6a6a7a;">📊 Status:</span> 
+                        <span id="statusMessage" style="color:#ff6a6a; font-weight:600;">OFFLINE - Konfigurasi belum lengkap</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <script src="script.js"></script>
+
+</body>
+</html>
